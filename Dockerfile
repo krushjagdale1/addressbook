@@ -1,11 +1,13 @@
-# Use an official Tomcat runtime as a base image
-FROM tomcat:9-jre11
+##DockerFile
 
-# Copy the WAR file into the webapps directory
-COPY target/addressbook-2.0.war /usr/local/tomcat/webapps/
+#Pulling base php-apache image from dockerhub
+FROM php:7.0-apache
 
-# Expose the default Tomcat port (8080)
-EXPOSE 8080
+#Run php commands to build and serve the application
+RUN apt-get update && \
+    apt-get clean
 
-# Command to run Tomcat
-CMD ["catalina.sh", "run"]
+# The PHP application code goes in sample-php/
+COPY sample-php /var/www/html/
+
+EXPOSE 80
